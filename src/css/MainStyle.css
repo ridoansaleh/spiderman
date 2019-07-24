@@ -1,0 +1,17 @@
+.todo-container {
+  width: 30%;
+  margin-left: 35%;
+}
+
+.buttons-container {
+  margin-top: 10px;
+}
+
+.todo-list-container {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.todo-item-done {
+  text-decoration: line-through;
+}

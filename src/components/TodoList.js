@@ -1,42 +1,14 @@
 import React, { Component } from 'react';
+import Todo from './Todo';
 
-class TodoList extends Component {
-  state = {
-    selectedTask: -1,
-  };
-
-  handleCheckTask = e => {
-    if (this.state.selectedTask == e.target.value) {
-      this.setState({ selectedTask: -1 });
-    } else {
-      this.setState({ selectedTask: parseInt(e.target.value) });
-    }
-  };
-
+export default class TodoList extends Component {
   render() {
     return (
-      <div>
-        <ul style={{ listStyleType: 'none', paddingLeft: 0 }}>
-          {this.props.todos.map(todo => {
-            return (
-              <li
-                key={todo.id}
-                style={todo.status === 'completed' ? { textDecoration: 'line-through' } : {}}
-              >
-                <input
-                  type="checkbox"
-                  value={todo.id}
-                  checked={todo.id === this.state.selectedTask}
-                  onChange={this.handleCheckTask}
-                />{' '}
-                {todo.task}
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+      <ul className="todo-list-container">
+        {this.props.todos.map(todo => (
+          <Todo key={todo.id} todo={todo} />
+        ))}
+      </ul>
     );
   }
 }
-
-export default TodoList;

@@ -31,9 +31,7 @@ export default class TodoInput extends Component {
 
   render() {
     return (
-      <div>
-        <input type="text" name="task" value={this.state.task} onChange={this.handleChangeTask} />
-      </div>
+      <input type="text" name="task" value={this.state.task} onChange={this.handleChangeTask} />
     );
   }
 }
