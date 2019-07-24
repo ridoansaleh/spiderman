@@ -5,6 +5,7 @@ import {
   SAVE_TASK_START,
   SAVE_TASK_SUCCEED,
   SAVE_TASK_FAILED,
+  SET_SELECTED_TASK,
 } from './types';
 
 export const fetchAllStart = () => ({
@@ -33,4 +34,9 @@ export const saveTaskSucceed = res => ({
 export const saveTaskFailed = msg => ({
   type: SAVE_TASK_FAILED,
   error: msg,
+});
+
+export const setSelectedTask = data => ({
+  type: SET_SELECTED_TASK,
+  payload: data,
 });

@@ -5,6 +5,7 @@ import {
   SAVE_TASK_START,
   SAVE_TASK_SUCCEED,
   SAVE_TASK_FAILED,
+  SET_SELECTED_TASK,
 } from './types';
 
 let initState = {
@@ -17,6 +18,7 @@ let initState = {
   isSaveTaskFailed: false,
   saveTaskError: '',
   data: [],
+  selectedTask: null,
 };
 
 const todosReducer = (state = initState, action) => {
@@ -56,6 +58,11 @@ const todosReducer = (state = initState, action) => {
         ...state,
         isSaveTaskFailed: true,
         saveTaskError: action.error,
+      };
+    case SET_SELECTED_TASK:
+      return {
+        ...state,
+        selectedTask: action.payload,
       };
     default:
       return state;

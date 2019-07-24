@@ -3,7 +3,15 @@ import React, { Component } from 'react';
 export default class TodoInput extends Component {
   state = {
     task: '',
+    isEditOn: false,
   };
+
+  static getDerivedStateFromProps(props) {
+    return {
+      task: props.isEditOn ? (props.selectedTask ? props.selectedTask.task : '') : '',
+      isEditOn: props.isEditOn,
+    };
+  }
 
   componentDidMount() {
     document.getElementsByName('task')[0].onkeypress = e => {
