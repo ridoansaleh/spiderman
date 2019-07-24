@@ -6,12 +6,12 @@ export default class TodoInput extends Component {
     isEditOn: false,
   };
 
-  static getDerivedStateFromProps(props) {
-    return {
-      task: props.isEditOn ? (props.selectedTask ? props.selectedTask.task : '') : '',
-      isEditOn: props.isEditOn,
-    };
-  }
+  // static getDerivedStateFromProps(props) {
+  //   return {
+  //     task: props.isEditOn ? (props.selectedTask ? props.selectedTask.task : '') : '',
+  //     isEditOn: props.isEditOn,
+  //   };
+  // }
 
   componentDidMount() {
     document.getElementsByName('task')[0].onkeypress = e => {
@@ -29,6 +29,10 @@ export default class TodoInput extends Component {
         return false;
       }
     };
+  }
+
+  componentDidUpdate() {
+    console.log('didupdate');
   }
 
   handleChangeTask = e => {

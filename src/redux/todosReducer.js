@@ -6,6 +6,9 @@ import {
   SAVE_TASK_SUCCEED,
   SAVE_TASK_FAILED,
   SET_SELECTED_TASK,
+  COMPLETE_TASK_START,
+  COMPLETE_TASK_SUCCEED,
+  COMPLETE_TASK_FAILED,
 } from './types';
 
 let initState = {
@@ -19,6 +22,10 @@ let initState = {
   saveTaskError: '',
   data: [],
   selectedTask: null,
+  isCompletingStart: false,
+  isCompletingSucceed: false,
+  isCompletingFailed: false,
+  completingTaskError: '',
 };
 
 const todosReducer = (state = initState, action) => {
@@ -63,6 +70,25 @@ const todosReducer = (state = initState, action) => {
       return {
         ...state,
         selectedTask: action.payload,
+      };
+    case COMPLETE_TASK_START:
+      return {
+        ...state,
+        isCompletingStart: true,
+      };
+    case COMPLETE_TASK_SUCCEED:
+      leftData = state.data.filter(todo => todo.id !== action.payload.id);
+      newData = [...leftData, action.payload];
+      return {
+        ...state,
+        isCompletingSucceed: true,
+        data: newData,
+      };
+    case COMPLETE_TASK_FAILED:
+      return {
+        ...state,
+        isCompletingFailed: true,
+        completingTaskError: action.error,
       };
     default:
       return state;
