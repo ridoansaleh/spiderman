@@ -14,7 +14,7 @@ import {
   RESET_TASK_FAILED,
 } from './types';
 
-let initState = {
+export let initState = {
   isFetchAllStart: false,
   isFetchAllSucceed: false,
   isFetchAllFailed: false,

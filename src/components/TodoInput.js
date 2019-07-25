@@ -24,8 +24,8 @@ export default class TodoInput extends Component {
     };
   }
 
-  shouldComponentUpdate(nextProps) {
-    if (nextProps.isEditOn) {
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps.isEditOn || this.state.task !== nextState.task) {
       return true;
     }
     return false;
