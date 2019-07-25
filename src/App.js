@@ -4,7 +4,7 @@ import TodoInput from './components/TodoInput';
 import TodoUpdate from './components/TodoUpdate';
 import TodoList from './components/TodoList';
 import './css/MainStyle.css';
-import { fetchAllTodos, saveTask, completeTask } from './redux/creators';
+import { fetchAllTodos, saveTask, completeTask, resetTask } from './redux/creators';
 import { setSelectedTask } from './redux/actions';
 
 class App extends Component {
@@ -37,6 +37,7 @@ class App extends Component {
           selectedTask={todos.selectedTask}
           handleEditClick={this.handleEditClick}
           completeTask={this.props.completeTask}
+          resetTask={this.props.resetTask}
         />
         <TodoList
           todos={todos.data}
@@ -57,6 +58,7 @@ const mapDispatchToProps = {
   saveTask,
   setSelectedTask,
   completeTask,
+  resetTask,
 };
 
 export default connect(

@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 
 export default class TodoUpdate extends Component {
+  handleClickComplete = task => {
+    this.props.completeTask({ ...task, status: 'completed' });
+  };
+
+  handleClickReset = task => {
+    this.props.resetTask({ ...task, status: 'waiting' });
+  };
+
   render() {
     const { selectedTask } = this.props;
     return (
@@ -8,14 +16,15 @@ export default class TodoUpdate extends Component {
         <button
           type="button"
           disabled={selectedTask ? selectedTask.status === 'completed' : false}
-          onClick={() => {
-            console.log('Hello : ', selectedTask);
-            selectedTask && this.props.completeTask({ ...selectedTask, status: 'completed' });
-          }}
+          onClick={() => this.handleClickComplete(selectedTask)}
         >
           Complete
         </button>
-        <button type="button" disabled={selectedTask ? selectedTask.status === 'waiting' : false}>
+        <button
+          type="button"
+          disabled={selectedTask ? selectedTask.status === 'waiting' : false}
+          onClick={() => this.handleClickReset(selectedTask)}
+        >
           Reset
         </button>
         <button type="button" onClick={() => this.props.handleEditClick(true)}>

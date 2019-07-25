@@ -6,13 +6,6 @@ export default class TodoInput extends Component {
     isEditOn: false,
   };
 
-  // static getDerivedStateFromProps(props) {
-  //   return {
-  //     task: props.isEditOn ? (props.selectedTask ? props.selectedTask.task : '') : '',
-  //     isEditOn: props.isEditOn,
-  //   };
-  // }
-
   componentDidMount() {
     document.getElementsByName('task')[0].onkeypress = e => {
       if (!e) e = window.event;
@@ -31,8 +24,24 @@ export default class TodoInput extends Component {
     };
   }
 
-  componentDidUpdate() {
-    console.log('didupdate');
+  shouldComponentUpdate(nextProps) {
+    if (nextProps.isEditOn) {
+      return true;
+    }
+    return false;
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.isEditOn !== this.props.isEditOn) {
+      this.setState({
+        isEditOn: this.props.isEditOn,
+        task: this.props.isEditOn
+          ? this.props.selectedTask
+            ? this.props.selectedTask.task
+            : ''
+          : '',
+      });
+    }
   }
 
   handleChangeTask = e => {
