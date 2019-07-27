@@ -5,10 +5,16 @@ import {
   saveTaskStart,
   saveTaskSucceed,
   saveTaskFailed,
+  completeTaskStart,
+  completeTaskSucceed,
+  completeTaskFailed,
+  resetTaskStart,
+  resetTaskSucceed,
+  resetTaskFailed,
 } from './actions';
 
 const TODOS_URL = 'https://ridoan-api.herokuapp.com/api/todos';
-const SAVE_TODO_URL = 'https://ridoan-api.herokuapp.com/api/todo';
+const TODO_URL = 'https://ridoan-api.herokuapp.com/api/todo';
 
 export const fetchAllTodos = () => async dispatch => {
   dispatch(fetchAllStart());
@@ -36,7 +42,7 @@ export const saveTask = data => async dispatch => {
       },
       body: JSON.stringify(data),
     };
-    let response = await fetch(SAVE_TODO_URL, options);
+    let response = await fetch(TODO_URL, options);
     if (!response.ok) {
       dispatch(saveTaskFailed(response.statusText));
     }
@@ -45,5 +51,47 @@ export const saveTask = data => async dispatch => {
     // fetchAllTodos();
   } catch (error) {
     dispatch(saveTaskFailed(error));
+  }
+};
+
+export const completeTask = data => async dispatch => {
+  dispatch(completeTaskStart());
+  try {
+    let options = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    };
+    let response = await fetch(TODO_URL + '/' + data.id, options);
+    if (!response.ok) {
+      dispatch(completeTaskFailed(response.statusText));
+    }
+    let result = await response.json();
+    dispatch(completeTaskSucceed(data));
+  } catch (error) {
+    dispatch(completeTaskFailed(error));
+  }
+};
+
+export const resetTask = data => async dispatch => {
+  dispatch(resetTaskStart());
+  try {
+    let options = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    };
+    let response = await fetch(TODO_URL + '/' + data.id, options);
+    if (!response.ok) {
+      dispatch(resetTaskFailed(response.statusText));
+    }
+    let result = await response.json();
+    dispatch(resetTaskSucceed(data));
+  } catch (error) {
+    dispatch(resetTaskFailed(error));
   }
 };

@@ -5,9 +5,16 @@ import {
   SAVE_TASK_START,
   SAVE_TASK_SUCCEED,
   SAVE_TASK_FAILED,
+  SET_SELECTED_TASK,
+  COMPLETE_TASK_START,
+  COMPLETE_TASK_SUCCEED,
+  COMPLETE_TASK_FAILED,
+  RESET_TASK_START,
+  RESET_TASK_SUCCEED,
+  RESET_TASK_FAILED,
 } from './types';
 
-let initState = {
+export let initState = {
   isFetchAllStart: false,
   isFetchAllSucceed: false,
   isFetchAllFailed: false,
@@ -17,6 +24,15 @@ let initState = {
   isSaveTaskFailed: false,
   saveTaskError: '',
   data: [],
+  selectedTask: null,
+  isCompletingStart: false,
+  isCompletingSucceed: false,
+  isCompletingFailed: false,
+  completingTaskError: '',
+  isResetStart: false,
+  isResetSucceed: false,
+  isResetFailed: false,
+  resetTaskError: '',
 };
 
 const todosReducer = (state = initState, action) => {
@@ -56,6 +72,49 @@ const todosReducer = (state = initState, action) => {
         ...state,
         isSaveTaskFailed: true,
         saveTaskError: action.error,
+      };
+    case SET_SELECTED_TASK:
+      return {
+        ...state,
+        selectedTask: action.payload,
+      };
+    case COMPLETE_TASK_START:
+      return {
+        ...state,
+        isCompletingStart: true,
+      };
+    case COMPLETE_TASK_SUCCEED:
+      leftData = state.data.filter(todo => todo.id !== action.payload.id);
+      newData = [...leftData, action.payload];
+      return {
+        ...state,
+        isCompletingSucceed: true,
+        data: newData,
+      };
+    case COMPLETE_TASK_FAILED:
+      return {
+        ...state,
+        isCompletingFailed: true,
+        completingTaskError: action.error,
+      };
+    case RESET_TASK_START:
+      return {
+        ...state,
+        isResetStart: true,
+      };
+    case RESET_TASK_SUCCEED:
+      leftData = state.data.filter(todo => todo.id !== action.payload.id);
+      newData = [...leftData, action.payload];
+      return {
+        ...state,
+        isResetSucceed: true,
+        data: newData,
+      };
+    case RESET_TASK_FAILED:
+      return {
+        ...state,
+        isResetFailed: true,
+        resetTaskError: action.error,
       };
     default:
       return state;

@@ -5,8 +5,16 @@ import {
   SAVE_TASK_START,
   SAVE_TASK_SUCCEED,
   SAVE_TASK_FAILED,
+  SET_SELECTED_TASK,
+  COMPLETE_TASK_START,
+  COMPLETE_TASK_SUCCEED,
+  COMPLETE_TASK_FAILED,
+  RESET_TASK_START,
+  RESET_TASK_SUCCEED,
+  RESET_TASK_FAILED,
 } from './types';
 
+// FETCH ALL
 export const fetchAllStart = () => ({
   type: FETCH_ALL_START,
 });
@@ -21,6 +29,7 @@ export const fetchAllFailed = msg => ({
   error: msg,
 });
 
+// SAVE TASK
 export const saveTaskStart = () => ({
   type: SAVE_TASK_START,
 });
@@ -32,5 +41,41 @@ export const saveTaskSucceed = res => ({
 
 export const saveTaskFailed = msg => ({
   type: SAVE_TASK_FAILED,
+  error: msg,
+});
+
+// SELECT TASK
+export const setSelectedTask = data => ({
+  type: SET_SELECTED_TASK,
+  payload: data,
+});
+
+// COMPLETE TASK
+export const completeTaskStart = () => ({
+  type: COMPLETE_TASK_START,
+});
+
+export const completeTaskSucceed = res => ({
+  type: COMPLETE_TASK_SUCCEED,
+  payload: res,
+});
+
+export const completeTaskFailed = msg => ({
+  type: COMPLETE_TASK_FAILED,
+  error: msg,
+});
+
+// RESET TASK
+export const resetTaskStart = () => ({
+  type: RESET_TASK_START,
+});
+
+export const resetTaskSucceed = res => ({
+  type: RESET_TASK_SUCCEED,
+  payload: res,
+});
+
+export const resetTaskFailed = msg => ({
+  type: RESET_TASK_FAILED,
   error: msg,
 });

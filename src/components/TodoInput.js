@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 export default class TodoInput extends Component {
   state = {
     task: '',
+    isEditOn: false,
   };
 
   componentDidMount() {
@@ -21,6 +22,26 @@ export default class TodoInput extends Component {
         return false;
       }
     };
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps.isEditOn || this.state.task !== nextState.task) {
+      return true;
+    }
+    return false;
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.isEditOn !== this.props.isEditOn) {
+      this.setState({
+        isEditOn: this.props.isEditOn,
+        task: this.props.isEditOn
+          ? this.props.selectedTask
+            ? this.props.selectedTask.task
+            : ''
+          : '',
+      });
+    }
   }
 
   handleChangeTask = e => {
